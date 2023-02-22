@@ -29,20 +29,31 @@
         button:hover {
             background-color: rgb(226, 226, 226);
         }
+        input {
+            border: none;
+            border-radius: 5px;
+            height: 20px;
+        }
     </style>
     <title>Gif generator</title>
 </head>
 <body>
     <div>
+        <input type="text" placeholder="Search gif...">
         <img src="#">
-        <button type="button">New cat</button>
+        <button type="button">New gif</button>
     </div>
     <script>
         const img = document.querySelector('img');
         const btn = document.querySelector('button');
+        const search = document.querySelector('input');
+
         genCat();
-        function genCat() {
-            fetch('https://api.giphy.com/v1/gifs/translate?api_key=Qc2BiZLfwPihh4wFL4po2bvMVQYDjDVp&s=cats')
+        search.addEventListener('input', () => {
+            genCat(search.value);
+        });
+        function genCat(value = 'cats') {
+            fetch(`https://api.giphy.com/v1/gifs/translate?api_key=Qc2BiZLfwPihh4wFL4po2bvMVQYDjDVp&s=${value}`)
                 .then(function(response){
                     return response.json();
                 })
@@ -51,7 +62,11 @@
                 });
         }
         btn.addEventListener('click', () => {
-            genCat();
+            if (search.value === '') {
+                genCat();
+            } else {
+                genCat(search.value);
+            }
         });
     </script>
 </body>
