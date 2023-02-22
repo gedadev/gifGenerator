@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gif generator</title>
+</head>
+<body>
+    <div>
+        <img src="#">
+    </div>
+    <script>
+        const img = document.querySelector('img');
+
+        fetch('https://api.giphy.com/v1/gifs/translate?api_key=Qc2BiZLfwPihh4wFL4po2bvMVQYDjDVp&s=cats')
+            .then(function(response){
+                return response.json();
+            })
+            .then(function(response) {
+                img.src = response.data.images.original.url;
+            });
+    </script>
+</body>
+</html>
