@@ -9,17 +9,24 @@
 <body>
     <div>
         <img src="#">
+        <button type="button">New cat</button>
     </div>
     <script>
         const img = document.querySelector('img');
-
-        fetch('https://api.giphy.com/v1/gifs/translate?api_key=Qc2BiZLfwPihh4wFL4po2bvMVQYDjDVp&s=cats')
-            .then(function(response){
-                return response.json();
-            })
-            .then(function(response) {
-                img.src = response.data.images.original.url;
-            });
+        const btn = document.querySelector('button');
+        genCat();
+        function genCat() {
+            fetch('https://api.giphy.com/v1/gifs/translate?api_key=Qc2BiZLfwPihh4wFL4po2bvMVQYDjDVp&s=cats')
+                .then(function(response){
+                    return response.json();
+                })
+                .then(function(response) {
+                    img.src = response.data.images.original.url;
+                });
+        }
+        btn.addEventListener('click', () => {
+            genCat();
+        });
     </script>
 </body>
 </html>
