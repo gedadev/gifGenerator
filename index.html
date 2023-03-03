@@ -8,7 +8,7 @@
         body {
             background-color: rgb(189, 181, 216);
             position: fixed;
-            top: 35%;
+            top: 45%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
@@ -16,6 +16,10 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+        }
+        img {
+            height: 500px;
+            width: auto;
         }
         button {
             border: none;
@@ -52,14 +56,10 @@
         search.addEventListener('input', () => {
             genCat(search.value);
         });
-        function genCat(value = 'cats') {
-            fetch(`https://api.giphy.com/v1/gifs/translate?api_key=Qc2BiZLfwPihh4wFL4po2bvMVQYDjDVp&s=${value}`)
-                .then(function(response){
-                    return response.json();
-                })
-                .then(function(response) {
-                    img.src = response.data.images.original.url;
-                });
+        async function genCat(value = 'cats') {
+            const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=Qc2BiZLfwPihh4wFL4po2bvMVQYDjDVp&s=${value}`, {mode: 'cors'});
+            const getData = await response.json();
+            img.src = getData.data.images.original.url;
         }
         btn.addEventListener('click', () => {
             if (search.value === '') {
